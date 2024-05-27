@@ -1,0 +1,8 @@
+dim_datumy = 
+
+ADDCOLUMNS(
+    SELECTCOLUMNS(
+    CALENDARAUTO(),"datum",[Date]),
+"rok",YEAR([datum]),
+"mesic",MONTH([datum]),
+"den",DAY([datum]))
