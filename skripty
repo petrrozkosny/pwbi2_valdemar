@@ -6,3 +6,32 @@ ADDCOLUMNS(
 "rok",YEAR([datum]),
 "mesic",MONTH([datum]),
 "den",DAY([datum]))
+
+
+________________________________________
+
+02 suma srazek ruzyne = 
+--takto NE
+VAR verze1 = 
+CALCULATE(
+    SUM(data[Srazky]),
+FILTER(
+    ALL(data),
+data[rok] = SELECTEDVALUE(data[rok])
+&& data[Lokalita] = "RUZYNE"))
+
+-- TAKTO ANO, POKUD NEFUNGUJE VERZE 3
+VAR verze2 =
+CALCULATE(
+    SUM(data[Srazky]),
+FILTER(
+    ALL(data[Lokalita]),
+data[Lokalita] = "RUZYNE"))
+-- TAKTO ANO
+VAR verze3 =
+CALCULATE(
+    SUM(data[Srazky]),
+data[Lokalita] = "RUZYNE")
+
+RETURN verze3
+
