@@ -67,3 +67,19 @@ RETURN
 CALCULATE(
     SUM(data[Srazky]),
     data[Lokalita] IN lokality_zeme)
+
+__________________________________________________________________
+
+cv16 rok max rocnich srazek = 
+
+VAR _tabulka = 
+ADDCOLUMNS(
+    ALL(data[rok]),
+    "rocni srazky",
+    CALCULATE(SUM(data[Srazky])))
+
+VAR _maximalni_rocni_srazky = MAXX(_tabulka,[rocni srazky])
+RETURN
+CONCATENATEX(
+    FILTER(_tabulka,[rocni srazky] = _maximalni_rocni_srazky),
+data[rok],", ")
