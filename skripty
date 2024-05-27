@@ -46,3 +46,24 @@ ISFILTERED(data[Lokalita]),
 "Maximální teploty v lokalitách " &
 CONCATENATEX(DISTINCT(data[Lokalita]),data[Lokalita],", "),
 "Maximální teploty ve všech lokalitách")
+
+
+
+__________________________________________________________________
+
+22 podil lokality na srazkach zeme = 
+
+VAR zeme_lokality = 
+CALCULATE(
+    FIRSTNONBLANK(dim_lokality[Zeme],TRUE()),
+    CROSSFILTER(data[Lokalita],dim_lokality[Lokalita],Both))
+
+VAR lokality_zeme = 
+CALCULATETABLE(
+    VALUES(dim_lokality[Lokalita]),
+    dim_lokality[Zeme] = zeme_lokality)
+
+RETURN
+CALCULATE(
+    SUM(data[Srazky]),
+    data[Lokalita] IN lokality_zeme)
