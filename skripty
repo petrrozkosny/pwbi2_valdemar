@@ -35,3 +35,14 @@ data[Lokalita] = "RUZYNE")
 
 RETURN verze3
 
+__________________________________________________________
+
+19 nazev tabulky = 
+
+SWITCH(TRUE(),
+HASONEFILTER(data[Lokalita]),
+"Maximální teploty v lokalitě " & SELECTEDVALUE(data[Lokalita]),
+ISFILTERED(data[Lokalita]),
+"Maximální teploty v lokalitách " &
+CONCATENATEX(DISTINCT(data[Lokalita]),data[Lokalita],", "),
+"Maximální teploty ve všech lokalitách")
